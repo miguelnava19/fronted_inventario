@@ -1,0 +1,41 @@
+<h1>Crear Empleado</h1>
+<div class="card">
+  <div class="card-header">
+    Crear Empleado
+  </div>
+  <div class="card-body">
+    <form action="#" name="form-save-empleado">
+      <div class="alert alert-primary">
+        Todos los campos con <span class="required-indicator">*</span> son requeridos
+      </div>
+      <div class="form-group">
+        <label for="cedula">Cédula<span class="required-indicator">*</span></label>
+        <input type="number" class="form-control" id="cedula" name="cedula" placeholder="Cédula" required
+               [(ngModel)]="empleado.cedula">
+      </div>
+
+      <div class="form-group">
+        <label for="nombres">Nombres <span class="required-indicator">*</span></label>
+        <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres" required
+               [(ngModel)]="empleado.nombres">
+      </div>
+
+      <div class="form-group">
+        <label for="apellidos">Apellidos<span class="required-indicator">*</span></label>
+        <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos" required
+               [(ngModel)]="empleado.apellidos">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico<span class="required-indicator">*</span></label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" required
+               [(ngModel)]="empleado.email">
+      </div>
+      <fieldset>
+        <div class="text-right">
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

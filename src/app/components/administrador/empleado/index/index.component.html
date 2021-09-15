@@ -1,0 +1,84 @@
+<h1>{{title}}</h1>
+<div class="card">
+  <div class="card-header">
+    Filtros
+  </div>
+  <div class="card-body">
+    <div class="row m-b-20">
+      <div class="form-group col-md-2">
+        <label for="estadoVacunacion">Estado Vacunación</label>
+        <select name="estadoVacunacion" id="estadoVacunacion" class="form-control"
+                [(ngModel)]="filtros.estadoVacunacion">
+          <option value="">Seleccione...</option>
+          <option value="vacunado">Vacunado</option>
+          <option value="No Vacunado">No Vacunado</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="tipoVacuna">Tipo Vacuna</label>
+        <select name="tipoVacuna" id="tipoVacuna" class="form-control" [(ngModel)]="filtros.tipoVacuna">
+          <option value="">Seleccione...</option>
+          <option value="Sputnik">Sputnik</option>
+          <option value="AstraZeneca">AstraZeneca</option>
+          <option value="Pfizer">Pfizer</option>
+          <option value="Jhonson&Jhonson">Jhonson&Jhonson</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label for="dosis">Num. Dosis</label>
+        <input type="number" name="dosis" id="dosis" class="form-control"
+               placeholder="Num. Dosis" [(ngModel)]="filtros.dosis">
+      </div>
+
+    </div>
+    <div class="text-right">
+      <a class="btn btn-danger text-white" (click)="limpiar()">
+        Limpiar
+      </a>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">
+    Lista Empleados
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>id</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Cedula</th>
+          <th>Correo Electronico</th>
+          <th>Fecha Nacimiento</th>
+          <th>Domicilio</th>
+          <th>Teléfono</th>
+          <th>Estado Vacunación</th>
+          <th>Tipo Vacuna</th>
+          <th>Num. Dosis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let empleado of empleadosList | filtros:filtros.estadoVacunacion:filtros.tipoVacuna:filtros.dosis">
+          <td>{{empleado.id}}</td>
+          <td>{{empleado.nombres}}</td>
+          <td>{{empleado.apellidos}}</td>
+          <td>{{empleado.cedula}}</td>
+          <td>{{empleado.email}}</td>
+          <td>{{empleado.fechaNacimiento}}</td>
+          <td>{{empleado.domicilio}}</td>
+          <td>{{empleado.telefono}}</td>
+          <td>{{empleado.estadoVacunacion}}</td>
+          <td>{{empleado.tipoVacuna}}</td>
+          <td>{{empleado.numeroDosis}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
