@@ -60,6 +60,7 @@ export class CreateComponent implements OnInit {
     if (this.empleado.estadoVacunacion != 'Vacunado') {
       this.empleado.tipoVacuna = '';
       this.empleado.numeroDosis = '';
+      this.empleado.fechaVacunacion = '';
     }
 
     this.empleadoService.update(this.empleado).subscribe(

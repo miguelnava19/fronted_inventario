@@ -13,6 +13,7 @@ export class Empleado {
   estadoVacunacion: string = '';//Vacunado / No Vacunado
   tipoVacuna: string = '';//Sputnik, AstraZeneca, Pfizer y Jhonson&Jhonson
   numeroDosis: string = '';
+  fechaVacunacion:string = '';
 
   usuario: Usuario = null;
 }

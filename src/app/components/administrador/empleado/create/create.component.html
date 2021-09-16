@@ -164,6 +164,22 @@
         </div>
 
         <div class="form-group" *ngIf="empleado.estadoVacunacion == 'Vacunado'">
+          <label>Fecha vacunación<span class="required-indicator">*</span></label>
+          <br>
+          <input matInput [matDatepicker]="picker" class="form-control" [(ngModel)]="empleado.fechaVacunacion"
+                 name="fechaVacunacion" style="display: inline; width: 800px" required #fechaVacunacion="ngModel">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <div class="alert alert-danger" *ngIf="fechaVacunacion.invalid && (fechaVacunacion.dirty || fechaVacunacion.touched)">
+            <div *ngIf="fechaVacunacion.errors.required">
+              Fecha de vacunación es requerida
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="form-group" *ngIf="empleado.estadoVacunacion == 'Vacunado'">
           <label>Número de dosis<span class="required-indicator">*</span></label>
           <input type="text" class="form-control" [(ngModel)]="empleado.numeroDosis" name="numeroDosis"
                  placeholder="numeroDosis" required required pattern="[0-9]*"
