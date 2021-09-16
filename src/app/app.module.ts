@@ -13,12 +13,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {FiltrosPipe} from './components/administrador/empleado/filtros.pipe';
 import {HttpClientModule} from '@angular/common/http';
 
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import localeES from '@angular/common/locales/es';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
-import { LoginComponent } from './components/usuarios/login.component';
+import {LoginComponent} from './components/usuarios/login.component';
+
 registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'empleados', component: IndexComponent},
   {path: 'empleados/create', component: CreateComponent},
   {path: 'empleados/create/:id', component: CreateComponent},
+  {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
@@ -43,9 +45,9 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    BrowserAnimationsModule,MatDatepickerModule, MatMomentDateModule
+    BrowserAnimationsModule, MatDatepickerModule, MatMomentDateModule
   ],
-  providers: [EmpleadoService,{ provide: LOCALE_ID, useValue: 'es' }],
+  providers: [EmpleadoService, {provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
