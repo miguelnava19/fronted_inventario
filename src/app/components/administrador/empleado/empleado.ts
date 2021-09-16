@@ -5,10 +5,10 @@ export class Empleado {
   apellidos!: string;
   email!: string;
 
-  fechaNacimiento!: string;
-  domicilio!: string;
-  telefono!: string;
-  estadoVacunacion!: string;//Vacunado / No Vacunado
-  tipoVacuna!: string;//Sputnik, AstraZeneca, Pfizer y Jhonson&Jhonson
-  numeroDosis!: string;
+  fechaNacimiento: string = '';
+  domicilio: string = '';
+  telefono: string = '';
+  estadoVacunacion: string = '';//Vacunado / No Vacunado
+  tipoVacuna: string = '';//Sputnik, AstraZeneca, Pfizer y Jhonson&Jhonson
+  numeroDosis: string= '';
 }

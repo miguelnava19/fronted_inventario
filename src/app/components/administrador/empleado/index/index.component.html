@@ -1,5 +1,8 @@
 <h1>{{title}}</h1>
-<div class="card">
+<div class="alert alert-info" *ngIf="empleadosList?.length == 0">
+  No se han encontrado registros
+</div>
+<div class="card" *ngIf="empleadosList?.length>0">
   <div class="card-header">
     Filtros
   </div>
@@ -41,7 +44,7 @@
   </div>
 </div>
 <br>
-<div class="card">
+<div class="card" *ngIf="empleadosList?.length>0">
   <div class="card-header">
     Lista Empleados
   </div>
@@ -50,7 +53,6 @@
       <table class="table table-table-bordered table-striped">
         <thead>
         <tr>
-          <th>id</th>
           <th>Nombres</th>
           <th>Apellidos</th>
           <th>Cedula</th>
@@ -61,11 +63,12 @@
           <th>Estado Vacunación</th>
           <th>Tipo Vacuna</th>
           <th>Num. Dosis</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let empleado of empleadosList | filtros:filtros.estadoVacunacion:filtros.tipoVacuna:filtros.dosis">
-          <td>{{empleado.id}}</td>
           <td>{{empleado.nombres}}</td>
           <td>{{empleado.apellidos}}</td>
           <td>{{empleado.cedula}}</td>
@@ -76,6 +79,15 @@
           <td>{{empleado.estadoVacunacion}}</td>
           <td>{{empleado.tipoVacuna}}</td>
           <td>{{empleado.numeroDosis}}</td>
+          <td>
+            <button type="button" name="editar" [routerLink]="['/empleados/create', empleado.id]" class="btn btn-primary btn-sm">editar</button>
+          </td>
+          <td>
+            <button type="button" name="button" (click)="delete(empleado)"
+                    class="btn btn-danger btn-sm">
+              Eliminar
+            </button>
+          </td>
         </tr>
         </tbody>
       </table>
