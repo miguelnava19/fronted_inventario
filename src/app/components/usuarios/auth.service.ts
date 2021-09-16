@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Usuario} from "./usuario";
+import {EmpleadoService} from "../administrador/empleado/index/empleado.service";
+import {Empleado} from "../administrador/empleado/empleado";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ export class AuthService {
   private _usuario: Usuario;
   private _token: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private empleadoService: EmpleadoService) {
+  }
 
   public get usuario(): Usuario {
     if (this._usuario != null) {
@@ -48,10 +51,26 @@ export class AuthService {
 
   guardarUsuario(accessToken: string): void {
     let objPayload = this.obtenerPayload(accessToken);
+    console.info("objPayload ", objPayload)
     this._usuario = new Usuario();
     this._usuario.username = objPayload.user_name;
     this._usuario.roles = objPayload.authorities;
-    sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
+
+    if (objPayload.empleado_id) {
+      console.log("empleado id --> ", objPayload.empleado_id);
+      sessionStorage.setItem('empleado_id', JSON.stringify(objPayload.empleado_id));
+      this.empleadoService.getEmpleado(objPayload.empleado_id).subscribe(
+        (empleado) => {
+          console.log("empleado -> ", empleado);
+          this._usuario.empleado = empleado;
+          console.log("_usuario --> ", this._usuario)
+          sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
+        }
+      );
+    } else
+      sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
+
+
   }
 
   guardarToken(accessToken: string): void {

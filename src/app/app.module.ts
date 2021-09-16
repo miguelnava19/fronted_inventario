@@ -22,14 +22,25 @@ import {LoginComponent} from './components/usuarios/login.component';
 import {AuthGuard} from "./usuarios/guards/auth.guard";
 import {RoleGuard} from "./usuarios/guards/role.guard";
 import {TokenInterceptor} from "./usuarios/interceptors/token.interceptor";
+import { DetalleComponent } from './components/administrador/empleado/detalle/detalle.component';
 
 registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
   {path: '', redirectTo: '/empleados', pathMatch: 'full'},
-  {path: 'empleados', component: IndexComponent, canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_ADMIN' }},
-  {path: 'empleados/create', component: CreateComponent, canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_ADMIN' }},
-  {path: 'empleados/create/:id', component: CreateComponent, canActivate: [AuthGuard, RoleGuard]},
+  {path: 'empleados', component: IndexComponent, canActivate: [AuthGuard, RoleGuard], data: {roles: ['ROLE_ADMIN']}},
+  {
+    path: 'empleados/create',
+    component: CreateComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN']}
+  },
+  {
+    path: 'empleados/create/:id',
+    component: CreateComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_EMPLEADO']}
+  },
   {path: 'login', component: LoginComponent},
 ];
 
@@ -41,7 +52,8 @@ const routes: Routes = [
     IndexComponent,
     CreateComponent,
     FiltrosPipe,
-    LoginComponent
+    LoginComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +63,7 @@ const routes: Routes = [
     BrowserAnimationsModule, MatDatepickerModule, MatMomentDateModule
   ],
   providers: [EmpleadoService, {provide: LOCALE_ID, useValue: 'es'},
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -3,6 +3,8 @@ import {Empleado} from '../empleado';
 import {EmpleadoService} from './empleado.service';
 import swal from 'sweetalert2';
 import {AuthService} from "../../../usuarios/auth.service";
+import {Router} from "@angular/router";
+import {ModalService} from "../detalle/modal.service";
 
 @Component({
   selector: 'app-index',
@@ -11,13 +13,17 @@ import {AuthService} from "../../../usuarios/auth.service";
 export class IndexComponent implements OnInit {
   empleadosList: Empleado[];
   title: string = 'Lista empleados';
+  empleadoSeleccionado: Empleado;
   filtros: any = {
     dosis: '',
     estadoVacunacion: '',
     tipoVacuna: ''
   }
 
-  constructor(private empleadoService: EmpleadoService, private authService: AuthService) {
+  constructor(private empleadoService: EmpleadoService,
+              private authService: AuthService,
+              private router: Router,
+              private modalService: ModalService) {
   }
 
   hasRole(role: string) {
@@ -25,6 +31,9 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.hasRole('ROLE_ADMIN')) {
+      this.router.navigate(['/enpleados/create',])
+    }
     this.empleadoService.getEmpleados().subscribe(
       empleados => this.empleadosList = empleados
     );
@@ -64,6 +73,11 @@ export class IndexComponent implements OnInit {
         )
       }
     })
+  }
+
+  abrirModal(empleado: Empleado) {
+    this.empleadoSeleccionado = empleado;
+    this.modalService.abrirModal();
   }
 
 }

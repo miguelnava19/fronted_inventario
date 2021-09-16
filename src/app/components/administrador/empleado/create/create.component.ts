@@ -57,6 +57,11 @@ export class CreateComponent implements OnInit {
   }
 
   update(): void {
+    if (this.empleado.estadoVacunacion != 'Vacunado') {
+      this.empleado.tipoVacuna = '';
+      this.empleado.numeroDosis = '';
+    }
+
     this.empleadoService.update(this.empleado).subscribe(
       json => {
         if (this.authService.hasRole('ROLE_ADMIN')) {
@@ -75,4 +80,9 @@ export class CreateComponent implements OnInit {
       }
     );
   }
+
+  hasRole(role: string): boolean {
+    return this.authService.hasRole(role);
+  }
+
 }

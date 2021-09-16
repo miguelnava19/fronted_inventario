@@ -1,3 +1,5 @@
+import {Usuario} from "../../usuarios/usuario";
+
 export class Empleado {
   id!: number;
   cedula!: string;
@@ -10,5 +12,7 @@ export class Empleado {
   telefono: string = '';
   estadoVacunacion: string = '';//Vacunado / No Vacunado
   tipoVacuna: string = '';//Sputnik, AstraZeneca, Pfizer y Jhonson&Jhonson
-  numeroDosis: string= '';
+  numeroDosis: string = '';
+
+  usuario: Usuario = null;
 }

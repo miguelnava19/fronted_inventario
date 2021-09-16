@@ -14,7 +14,7 @@ export class EmpleadoService {
   private url: string = "http://localhost:8080/api/empleados"
 
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
 

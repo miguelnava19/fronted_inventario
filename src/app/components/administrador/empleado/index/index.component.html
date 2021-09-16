@@ -1,3 +1,4 @@
+<detalle-empleado *ngIf="empleadoSeleccionado" [empleado]="empleadoSeleccionado"></detalle-empleado>
 <h1>{{title}}</h1>
 <div class="alert alert-info" *ngIf="empleadosList?.length == 0">
   No se han encontrado registros
@@ -56,10 +57,6 @@
           <th>Nombres</th>
           <th>Apellidos</th>
           <th>Cedula</th>
-          <th>Correo Electronico</th>
-          <th>Fecha Nacimiento</th>
-          <th>Domicilio</th>
-          <th>Teléfono</th>
           <th>Estado Vacunación</th>
           <th>Tipo Vacuna</th>
           <th>Num. Dosis</th>
@@ -72,13 +69,14 @@
           <td>{{empleado.nombres | uppercase}}</td>
           <td>{{empleado.apellidos | uppercase}}</td>
           <td>{{empleado.cedula}}</td>
-          <td>{{empleado.email}}</td>
-          <td>{{empleado.fechaNacimiento | date:"EEEE dd, MMMM yyyy"}}</td>
-          <td>{{empleado.domicilio}}</td>
-          <td>{{empleado.telefono}}</td>
           <td>{{empleado.estadoVacunacion}}</td>
           <td>{{empleado.tipoVacuna}}</td>
           <td>{{empleado.numeroDosis}}</td>
+          <td>
+            <button type="button" name="detalle" (click)="abrirModal(empleado)"
+                    class="btn btn-primary btn-sm">Ver Detalle
+            </button>
+          </td>
           <td>
             <button type="button" name="editar" [routerLink]="['/empleados/create', empleado.id]"
                     class="btn btn-primary btn-sm">editar

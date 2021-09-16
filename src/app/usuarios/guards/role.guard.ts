@@ -21,16 +21,20 @@ export class RoleGuard implements CanActivate {
       return false;
     }
 
-    let role = route.data['role'] as string;
-    console.log(role);
-    if (this.authService.hasRole(role)) {
-      return true;
+    let roles_allowed = route.data['roles'];
+    console.log(roles_allowed);
+    for (let role of roles_allowed) {
+      if (this.authService.hasRole(role)) {
+        return true;
+      }
     }
+
+
     swal('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso a este recurso!`, 'warning');
     if (this.authService.hasRole('ROLE_ADMIN'))
       this.router.navigate(['/empleados']);
     else
-      this.router.navigate(['/empleados/create', this.authService.usuario.empleado.id ]);
+      this.router.navigate(['/empleados/create', this.authService.usuario.empleado.id]);
     return false;
   }
 
