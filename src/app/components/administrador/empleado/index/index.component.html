@@ -56,9 +56,10 @@
         <tr>
           <th>Nombres</th>
           <th>Apellidos</th>
-          <th>Cedula</th>
+          <th>Cédula</th>
           <th>Estado Vacunación</th>
           <th>Tipo Vacuna</th>
+          <th>Fecha Vacunación</th>
           <th>Num. Dosis</th>
           <th>Editar</th>
           <th>Eliminar</th>
@@ -71,6 +72,7 @@
           <td>{{empleado.cedula}}</td>
           <td>{{empleado.estadoVacunacion}}</td>
           <td>{{empleado.tipoVacuna}}</td>
+          <td>{{empleado.fechaVacunacion | date: "fullDate"}}</td>
           <td>{{empleado.numeroDosis}}</td>
           <td>
             <button type="button" name="detalle" (click)="abrirModal(empleado)"
