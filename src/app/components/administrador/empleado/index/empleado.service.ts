@@ -24,9 +24,9 @@ export class EmpleadoService {
 
   }
 
-  create(empleado: Empleado): Observable<any> {
+  create(empleado: Empleado): Observable<Empleado> {
     return this.http.post(this.url, empleado, {headers: this.headeres}).pipe(
-      map((response: any) => response.entidad as Empleado),
+      map((response: any) => response.empleado as Empleado),
       catchError(e => {
         console.error("create error", e);
         if (e.status === 400) {
@@ -39,8 +39,7 @@ export class EmpleadoService {
   }
 
   getEmpleado(id): Observable<Empleado> {
-    return this.http.get(`${this.url}/${id}`).pipe(
-      map((response: any) => response.entidad as Empleado),
+    return this.http.get<Empleado>(`${this.url}/${id}`).pipe(
       catchError(e => {
         this.router.navigate(['/empleados'])
         console.error("getEmpleado error", e);

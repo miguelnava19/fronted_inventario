@@ -27,7 +27,7 @@ export class FiltrosPipe implements PipeTransform {
   }
 
   valida(valueFilter, value) {
-    return (valueFilter !== '' && valueFilter.toString().toLowerCase() === value.toString().toLowerCase())
+    return (value && valueFilter !== '' && valueFilter.toString().toLowerCase() === value.toString().toLowerCase())
   }
 
 }

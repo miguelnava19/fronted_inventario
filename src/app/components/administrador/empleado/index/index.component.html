@@ -44,13 +44,13 @@
   </div>
 </div>
 <br>
-<div class="card" *ngIf="empleadosList?.length>0">
+<div class="card  mb-3" *ngIf="empleadosList?.length>0">
   <div class="card-header">
     Lista Empleados
   </div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-table-bordered table-striped">
+      <table class="table table-table-bordered table-striped" style="max-height: 500px; overflow: auto">
         <thead>
         <tr>
           <th>Nombres</th>
@@ -69,11 +69,11 @@
         </thead>
         <tbody>
         <tr *ngFor="let empleado of empleadosList | filtros:filtros.estadoVacunacion:filtros.tipoVacuna:filtros.dosis">
-          <td>{{empleado.nombres}}</td>
-          <td>{{empleado.apellidos}}</td>
+          <td>{{empleado.nombres | uppercase}}</td>
+          <td>{{empleado.apellidos | uppercase}}</td>
           <td>{{empleado.cedula}}</td>
           <td>{{empleado.email}}</td>
-          <td>{{empleado.fechaNacimiento}}</td>
+          <td>{{empleado.fechaNacimiento | date:"EEEE dd, MMMM yyyy"}}</td>
           <td>{{empleado.domicilio}}</td>
           <td>{{empleado.telefono}}</td>
           <td>{{empleado.estadoVacunacion}}</td>

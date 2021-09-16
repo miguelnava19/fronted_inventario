@@ -24,12 +24,14 @@ export class CreateComponent implements OnInit {
   }
 
   loadEmpleado(): void {
+    console.log("loadEmpleado -> ")
     this.activatedRoute.params.subscribe(params => {
+      console.info("params --> ", params)
       let id = params['id']
       if (id) {
         this.title = 'Actualizar empleado';
         this.empleadoService.getEmpleado(id).subscribe(
-          (empleado) => this.empleado
+          (empleado) => this.empleado = empleado
         )
       }
     })
@@ -38,12 +40,12 @@ export class CreateComponent implements OnInit {
   create(): void {
     this.empleadoService.create(this.empleado).subscribe(
       empleado => {
-        this.router.navigate(['/clientes']);
-        swal('Nuevo cliente', `El empleado ${empleado.nombres} ha sido creado correctamente`, 'success');
+        this.router.navigate(['/empleados']);
+        swal('Nuevo empleado', `El empleado ${empleado.nombres} ha sido creado correctamente`, 'success');
       },
       err => {
+        console.error('Código del error desde el backend: ', err);
         this.errores = err.error.errors as string[];
-        console.error('Código del error desde el backend: ' + err.status);
         console.error(err.error.errors);
       }
     );
@@ -53,8 +55,13 @@ export class CreateComponent implements OnInit {
     this.empleadoService.update(this.empleado).subscribe(
       json => {
         this.router.navigate(['/empleados']);
-        swal('Empleado Actualizado', `${json.mensaje} ${json.entidad.nombres}`, 'success')
+        swal('Empleado Actualizado', `${json.mensaje}: ${json.empleado.nombres}`, 'success');
+      },
+      err => {
+        console.error('Código del error desde el backend: ', err);
+        this.errores = err.error.errors as string[];
+        console.error(err.error.errors);
       }
-    )
+    );
   }
 }
