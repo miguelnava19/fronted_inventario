@@ -56,7 +56,7 @@ export class AuthService {
 
   guardarToken(accessToken: string): void {
     this._token = accessToken;
-    sessionStorage.setItem('token', this._token);
+    sessionStorage.setItem('token', accessToken);
   }
 
   obtenerPayload(accessToken: string): any {
@@ -81,7 +81,7 @@ export class AuthService {
   logout(): void {
     this._token = null;
     this._usuario = null;
-    // sessionStorage.clear();
+    sessionStorage.clear();
     sessionStorage.removeItem('usuario');
     sessionStorage.removeItem('token');
   }

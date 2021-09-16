@@ -19,14 +19,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {LoginComponent} from './components/usuarios/login.component';
+import {AuthGuard} from "./usuarios/guards/auth.guard";
+import {RoleGuard} from "./usuarios/guards/role.guard";
 
 registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
   {path: '', redirectTo: '/empleados', pathMatch: 'full'},
-  {path: 'empleados', component: IndexComponent},
-  {path: 'empleados/create', component: CreateComponent},
-  {path: 'empleados/create/:id', component: CreateComponent},
+  {path: 'empleados', component: IndexComponent, canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_ADMIN' }},
+  {path: 'empleados/create', component: CreateComponent, canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_ADMIN' }},
+  {path: 'empleados/create/:id', component: CreateComponent, canActivate: [AuthGuard, RoleGuard]},
   {path: 'login', component: LoginComponent},
 ];
 

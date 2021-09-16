@@ -2,7 +2,7 @@
 <div class="alert alert-info" *ngIf="empleadosList?.length == 0">
   No se han encontrado registros
 </div>
-<div class="card" *ngIf="empleadosList?.length>0">
+<div class="card" *ngIf="empleadosList?.length>0 && hasRole('ROLE_ADMIN')">
   <div class="card-header">
     Filtros
   </div>
@@ -44,7 +44,7 @@
   </div>
 </div>
 <br>
-<div class="card mb-3" *ngIf="empleadosList?.length>0">
+<div class="card mb-3" *ngIf="empleadosList?.length>0 && hasRole('ROLE_ADMIN')">
   <div class="card-header">
     Lista Empleados
   </div>
@@ -80,7 +80,9 @@
           <td>{{empleado.tipoVacuna}}</td>
           <td>{{empleado.numeroDosis}}</td>
           <td>
-            <button type="button" name="editar" [routerLink]="['/empleados/create', empleado.id]" class="btn btn-primary btn-sm">editar</button>
+            <button type="button" name="editar" [routerLink]="['/empleados/create', empleado.id]"
+                    class="btn btn-primary btn-sm">editar
+            </button>
           </td>
           <td>
             <button type="button" name="button" (click)="delete(empleado)"

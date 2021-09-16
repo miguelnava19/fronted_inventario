@@ -4,6 +4,7 @@ import {EmpleadoService} from "../index/empleado.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import swal from 'sweetalert2';
 import {Observable} from "rxjs";
+import {AuthService} from "../../../usuarios/auth.service";
 
 @Component({
   selector: 'app-create',
@@ -16,7 +17,8 @@ export class CreateComponent implements OnInit {
 
   constructor(private empleadoService: EmpleadoService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -29,7 +31,10 @@ export class CreateComponent implements OnInit {
       console.info("params --> ", params)
       let id = params['id']
       if (id) {
-        this.title = 'Actualizar empleado';
+        if (this.authService.hasRole('ROLE_ADMIN'))
+          this.title = 'Actualizar empleado';
+        else
+          this.title = 'Actualizar información';
         this.empleadoService.getEmpleado(id).subscribe(
           (empleado) => this.empleado = empleado
         )
@@ -54,8 +59,14 @@ export class CreateComponent implements OnInit {
   update(): void {
     this.empleadoService.update(this.empleado).subscribe(
       json => {
-        this.router.navigate(['/empleados']);
-        swal('Empleado Actualizado', `${json.mensaje}: ${json.empleado.nombres}`, 'success');
+        if (this.authService.hasRole('ROLE_ADMIN')) {
+          this.router.navigate(['/empleados']);
+          swal('Empleado Actualizado', `${json.mensaje}: ${json.empleado.nombres}`, 'success');
+        } else {
+          this.router.navigate(['/empleados/create', this.authService.usuario.empleado.id]);
+          swal('Información Actualizada', `${json.mensaje}: ${json.empleado.nombres}`, 'success');
+        }
+
       },
       err => {
         console.error('Código del error desde el backend: ', err);

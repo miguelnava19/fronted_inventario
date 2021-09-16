@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Empleado} from '../empleado';
 import {EmpleadoService} from './empleado.service';
 import swal from 'sweetalert2';
+import {AuthService} from "../../../usuarios/auth.service";
 
 @Component({
   selector: 'app-index',
@@ -16,7 +17,11 @@ export class IndexComponent implements OnInit {
     tipoVacuna: ''
   }
 
-  constructor(private empleadoService: EmpleadoService) {
+  constructor(private empleadoService: EmpleadoService, private authService: AuthService) {
+  }
+
+  hasRole(role: string) {
+    return this.authService.hasRole(role);
   }
 
   ngOnInit(): void {

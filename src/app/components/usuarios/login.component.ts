@@ -20,7 +20,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/empleados']);
+      if (this.authService.hasRole('ROLE_ADMIN'))
+        this.router.navigate(['/empleados']);
+      else
+        this.router.navigate(['/empleados/create', this.authService.usuario.empleado.id ]);
     }
   }
 
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
     console.log(this.usuario);
     if (this.usuario.username == null || this.usuario.password == null) {
       swal("Error login", "Username o contraseña vacías", "error")
-      return
+      return;
     }
 
     this.authService.login(this.usuario).subscribe(
@@ -39,7 +42,10 @@ export class LoginComponent implements OnInit {
         this.authService.guardarToken(response.access_token);
 
         let usuario = this.authService.usuario;
-        this.router.navigate(['/empleados']);
+        if (this.authService.hasRole('ROLE_ADMIN'))
+          this.router.navigate(['/empleados']);
+        else
+          this.router.navigate(['/empleados/create', this.authService.usuario.empleado.id ]);
         swal(`Bienvenido ${usuario.username}`, `Hola ${usuario.username} bienvenido`, "success");
 
       }, e => {
