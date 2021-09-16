@@ -11,7 +11,7 @@ import {EmpleadoService} from './components/administrador/empleado/index/emplead
 
 import {RouterModule, Routes} from '@angular/router';
 import {FiltrosPipe} from './components/administrador/empleado/filtros.pipe';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {registerLocaleData} from '@angular/common';
 import localeES from '@angular/common/locales/es';
@@ -21,6 +21,7 @@ import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {LoginComponent} from './components/usuarios/login.component';
 import {AuthGuard} from "./usuarios/guards/auth.guard";
 import {RoleGuard} from "./usuarios/guards/role.guard";
+import {TokenInterceptor} from "./usuarios/interceptors/token.interceptor";
 
 registerLocaleData(localeES, 'es');
 
@@ -49,7 +50,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule, MatDatepickerModule, MatMomentDateModule
   ],
-  providers: [EmpleadoService, {provide: LOCALE_ID, useValue: 'es'}],
+  providers: [EmpleadoService, {provide: LOCALE_ID, useValue: 'es'},
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule {
